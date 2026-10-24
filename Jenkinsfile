@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_CREDS = '11ea0f3e838348c9b883cdf1f2c3d9e6' // Make sure this matches your Jenkins credential ID
+        DOCKER_CREDS = 'dockerhub-credentials-id'
     }
     stages {
         stage('Build Docker Image') {
@@ -22,7 +22,7 @@ pipeline {
                 script {
                     def imageName = (env.BRANCH_NAME == 'main' || env.BRANCH_NAME == 'master') ? 
                                     'subbiahthevar/prod:latest' : 
-                                    'subbiahthevar/dev:latest'
+                                    'subbiahthevar/react-app-dev:latest'
                     
                     echo "Pushing ${imageName} to Docker Hub..."
                     withCredentials([usernamePassword(credentialsId: "${env.DOCKER_CREDS}", 
